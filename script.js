@@ -29,6 +29,10 @@ if (sharedName){
     partnerName=sharedName;
 }
 
+if(partnerName.toLowerCase()==='aanchal'){
+    document.querySelector("#start-screen p").textContent="Catch enough hearts, kisses and hugs to reveal a special question... Hugs and kisses gives you a bonus 💕!!"
+}
+
 document.querySelector('#proposal-screen h1').textContent =
     `Will You Be My Valentine, ${partnerName} 💖 ?`;
 
@@ -216,7 +220,7 @@ function updateGame() {
         player.draw();
 
         spawnHeart();
-        if(partnerName === 'Aanchal'){
+        if(partnerName.toLowerCase() === 'aanchal'){
             spawnEmoji();
 
             emojis.forEach((emoji, index) => {
