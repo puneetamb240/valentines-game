@@ -20,6 +20,17 @@ const startBtn = document.getElementById('start-btn');
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
 const bgMusic = document.getElementById('bg-music');
+const params = new URLSearchParams(window.location.search);
+
+const sharedName = params.get('name');
+let partnerName = "My Love"
+
+if (sharedName){
+    partnerName=sharedName;
+}
+
+document.querySelector('#proposal-screen h1').textContent =
+    `Will You Be My Valentine, ${partnerName} 💖 ?`;
 
 // Resize Handling
 function resize() {
@@ -205,31 +216,33 @@ function updateGame() {
         player.draw();
 
         spawnHeart();
-        spawnEmoji();
+        if(partnerName === 'Aanchal'){
+            spawnEmoji();
 
-        emojis.forEach((emoji, index) => {
-            emoji.update();
-            emoji.draw();
+            emojis.forEach((emoji, index) => {
+                emoji.update();
+                emoji.draw();
 
-            // Collision detection (same as hearts)
-            if (
-                emoji.y > player.y &&
-                emoji.x > player.x &&
-                emoji.x < player.x + player.w
-            ) {
-                emojis.splice(index, 1);
-                score += 2; // emojis give bonus love 💕
-                createParticles(emoji.x, emoji.y);
-                updateScore();
+                // Collision detection (same as hearts)
+                if (
+                    emoji.y > player.y &&
+                    emoji.x > player.x &&
+                    emoji.x < player.x + player.w
+                ) {
+                    emojis.splice(index, 1);
+                    score += 2; // emojis give bonus love 💕
+                    createParticles(emoji.x, emoji.y);
+                    updateScore();
 
-                if (score >= WIN_SCORE) {
-                    triggerProposal();
+                    if (score >= WIN_SCORE) {
+                        triggerProposal();
+                    }
                 }
-            }
-            else if (emoji.y > canvas.height) {
-                emojis.splice(index, 1);
-            }
-        });
+                else if (emoji.y > canvas.height) {
+                    emojis.splice(index, 1);
+                }
+            });
+    }
 
 
         hearts.forEach((heart, index) => {
